@@ -1,0 +1,8 @@
+olap/pg/queries/execution_queries/*
+olap/pg/queries/validation_queries/*
+olap/pg/queries/explain_queries/*
+!olap/pg/queries/execution_queries/PLACEHOLDER
+!olap/pg/queries/validation_queries/PLACEHOLDER
+!olap/pg/queries/explain_queries/PLACEHOLDER
+
+.vscode
