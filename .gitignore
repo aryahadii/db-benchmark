@@ -1,4 +1,5 @@
-olap/pg/queries/execution_queries/*
+olap/pg/queries/execution_queries/*.stat
+olap/pg/queries/execution_queries/*.out
 olap/pg/queries/validation_queries/*
 olap/pg/queries/explain_queries/*
 !olap/pg/queries/execution_queries/PLACEHOLDER
