@@ -9,7 +9,7 @@ from
 where
 	p_partkey = ps_partkey
 	and p_brand <> 'Brand#13'
-	and p_type not like 'LARGE BRUSHED BRASS%'
+	and p_type not like 'LARGE BRUSHED%'
 	and p_size in (1, 7, 21, 15, 14, 41, 4, 28)
 	and ps_suppkey not in (
 		select
