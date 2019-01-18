@@ -1,0 +1,52 @@
+\documentclass[letterpaper,12pt]{article}
+% \documentclass[journal, a4paper]{IEEEtran}
+
+
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usetikzlibrary{plotmarks}
+\usepackage{tabularx} % extra features for tabular environment
+\usepackage{amsmath}  % improve math presentation
+\usepackage{graphicx} % takes care of graphic including machinery
+\usepackage[margin=1in,letterpaper]{geometry} % decreases margins
+\usepackage{cite} % takes care of citations
+\usepackage[final]{hyperref} % adds hyper links inside the generated pdf file
+\usepackage{subfiles}
+\usepackage{booktabs}
+\hypersetup{
+	colorlinks=true,       % false: boxed links; true: colored links
+	linkcolor=blue,        % color of internal links
+	citecolor=blue,        % color of links to bibliography
+	filecolor=magenta,     % color of file links
+	urlcolor=blue
+}
+
+
+\begin{document}
+
+\title{OLAP Benchmark for Database Systems}
+\author{Arya Hadi \\ \href{mailto:arya.hadi@aut.ac.ir}{arya.hadi@aut.ac.ir}}
+\date{\today}
+\maketitle
+
+% \subfile{report_abstract}
+\subfile{report_introduction}
+\subfile{report_configuration}
+\subfile{report_perf_test}
+
+\begin{thebibliography}{9}
+    \bibitem{docker}
+    Docker \href{https://www.docker.com/}{https://www.docker.com/}
+    \bibitem{postgres}
+    PostgreSQL \href{https://www.postgresql.org/}{https://www.postgresql.org/}
+    \bibitem{spark}
+    Apache Spark \href{https://spark.apache.org/}{https://spark.apache.org/}
+    \bibitem{flink}
+    Apache Flink \href{https://flink.apache.org/}{https://flink.apache.org/}
+    \bibitem{tpch}
+    TPC-H \href{http://www.tpc.org/tpch/}{http://www.tpc.org/tpch/}
+    \bibitem{dstat}
+    Dstat \href{http://dag.wiee.rs/home-made/dstat/}{http://dag.wiee.rs/home-made/dstat/}
+\end{thebibliography}
+
+\end{document}

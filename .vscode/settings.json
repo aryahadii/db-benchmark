@@ -1,0 +1,16 @@
+{
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/*.aux": true,
+        "**/*.fls": true,
+        "**/*.out": true,
+        "**/*.log": true,
+        "**/*.synctex.gz": true,
+        "**/*.fdb_latexmk": true
+    },
+    "editor.wordWrap": "on"
+}

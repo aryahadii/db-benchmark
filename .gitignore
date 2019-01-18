@@ -1,9 +1,18 @@
 olap/pg/queries/execution_queries/*.stat
 olap/pg/queries/execution_queries/*.out
+
 olap/pg/queries/validation_queries/*
-olap/pg/queries/explain_queries/*
-!olap/pg/queries/execution_queries/PLACEHOLDER
 !olap/pg/queries/validation_queries/PLACEHOLDER
+
+olap/pg/queries/explain_queries/*
 !olap/pg/queries/explain_queries/PLACEHOLDER
 
-.vscode
+*.aux
+*.log
+*.fls
+*.fdb_latexmk
+*.gz
+*.out
+*.pdf
+
+.DS_Store
