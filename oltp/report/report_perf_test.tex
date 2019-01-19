@@ -4,14 +4,14 @@
 
 \section{Performance Tests}
 
-In this section \textit{PostgreSQL}\cite{postgres}, \textit{Apache Spark}\cite{spark} and \textit{Apache Flink}\cite{flink} will be tested under OLAP workload. Results of our experiments should be comparable to other related works, therefore, \textit{TPC-H}\cite{tpcc} benchmark will be used to evaluate performance of mentioned technologies.
+In this section \textit{PostgreSQL}\cite{postgres} will be tested under OLAP workload. To achieve \textit{TPC-C}\cite{tpcc} benchmark standards, \textit{OLTPBench}\cite{oltpbench} will be used for PostgreSQL performance evaluation.
 
-\subsubsection{Query Runtime}
+\subsubsection{Response Time}
 Queries' runtime have been represented in Figure \ref{fig:pg_time}. Runtimes measured in seconds using \textit{Dstat}\cite{dstat}, a well developed resource statistics tool in Linux.
 \subfile{charts/time.tex}
 
-% \subsubsection{System Load}
-% In \textit{*NIX} systems, \textit{system load} represents the number of tasks in the queue of CPU. Since in tremendous workloads, CPU utilization is likely to be close to 100\%, system load is more accurate metric.
+\subsubsection{System Load}
+In \textit{*NIX} systems, \textit{system load} represents the number of tasks in the queue of CPU. Since in tremendous workloads, CPU utilization is likely to be close to 100\%, system load is more accurate metric.
 
 
 \end{document}
