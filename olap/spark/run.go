@@ -62,7 +62,7 @@ func runSparkShell(queryFilePath string) error {
 		"bash",
 		"-c",
 		fmt.Sprintf(
-			"spark-shell --packages com.databricks:spark-avro_2.11:4.0.0 < %s",
+			"spark-shell --packages com.databricks:spark-avro_2.11:4.0.0 < /%s",
 			"query.scala",
 		),
 	}
