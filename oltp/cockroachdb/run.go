@@ -5,12 +5,11 @@ package main
 import (
 	"context"
 	"fmt"
-	"io"
+	"io/ioutil"
 	"log"
 	"os"
 	"os/exec"
 	"strconv"
-	"time"
 )
 
 const (
@@ -29,7 +28,7 @@ func main() {
 }
 
 func parseArgs() {
-	if len(os.Args) < 3 {
+	if len(os.Args) < 2 {
 		log.Fatalln("not enough args")
 	}
 
@@ -68,7 +67,7 @@ func runWorkload(warehouse int) error {
 		fmt.Sprintf("./cockroach workload init tpcc --drop --warehouses %d", warehouse),
 	}
 	cmd := exec.Command("docker", args...)
-	_, err := cmd.CombinedOutput()
+	cmd.CombinedOutput()
 	log.Printf("%d warehouses loaded completely", warehouse)
 
 	args = []string{
@@ -77,35 +76,13 @@ func runWorkload(warehouse int) error {
 		containerName,
 		"bash",
 		"-c",
-		fmt.Sprintf("./cockroach workload run tpcc --warehouses %d", warehouse),
+		fmt.Sprintf("./cockroach workload run tpcc --warehouses %d --duration 150s", warehouse),
 	}
 	cmd = exec.Command("docker", args...)
-	output, err := cmd.StdoutPipe()
+	output, err := cmd.CombinedOutput()
 
-	// Timeout
-	done := make(chan error, 1)
-	go func() {
-		done <- cmd.Wait()
-	}()
-	select {
-	case <-time.After(5 * time.Minute):
-		if err := cmd.Process.Kill(); err != nil {
-			return fmt.Errorf("failed to kill process: %v", err)
-		}
-	case err := <-done:
-		if err != nil {
-			return fmt.Errorf("process finished with error: %v", err)
-		}
-	}
-
-	// Write to file
 	outputFilePath := fmt.Sprintf(outputPath, warehouse)
-	outputFile, err := os.Open(outputFilePath)
-	if err != nil {
-		return err
-	}
-	defer outputFile.Close()
-	_, err = io.Copy(outputFile, output)
+	ioutil.WriteFile(outputFilePath, output, 0644)
 	return err
 }
 
