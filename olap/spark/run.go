@@ -63,7 +63,7 @@ func runSparkShell(queryFilePath string) error {
 		"-c",
 		fmt.Sprintf(
 			"spark-shell --packages com.databricks:spark-avro_2.11:4.0.0 < %s",
-			queryFileName,
+			"query.scala",
 		),
 	}
 	psqlCmd := exec.Command("docker", psqlArgs...)
@@ -88,7 +88,7 @@ func copyFileToContainerRoot(filePath, containerName string) error {
 	copyArgs := []string{
 		"cp",
 		newFilePath,
-		fmt.Sprintf("%s:/%s", containerName, filePath),
+		fmt.Sprintf("%s:/query.scala", containerName),
 	}
 	copyCmd := exec.Command("docker", copyArgs...)
 	copyCmd.CombinedOutput()
