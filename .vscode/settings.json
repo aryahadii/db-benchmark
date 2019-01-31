@@ -12,5 +12,7 @@
         "**/*.synctex.gz": true,
         "**/*.fdb_latexmk": true
     },
-    "editor.wordWrap": "on"
+    "editor.wordWrap": "on",
+    "python.pythonPath": "/usr/local/bin/python",
+    "python.linting.pylintEnabled": true
 }
