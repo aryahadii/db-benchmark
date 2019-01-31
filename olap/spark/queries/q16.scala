@@ -5,9 +5,9 @@ import org.apache.spark.sql.functions.sum
 import org.apache.spark.sql.functions.avg
 import org.apache.spark.sql.functions.udf
 
-val lineitems = spark.read.parquet("hdfs://namenode:8020/lineitem.parquet")
-val suppliers = spark.read.parquet("hdfs://namenode:8020/supplier.parquet")
-val partsupps = spark.read.parquet("hdfs://namenode:8020/partsupp.parquet")
+val lineitems = spark.read.parquet("hdfs://namenode:8020/lineitem.{}")
+val suppliers = spark.read.parquet("hdfs://namenode:8020/supplier.{}")
+val partsupps = spark.read.parquet("hdfs://namenode:8020/partsupp.{}")
 
 val isSizeValid = udf { (x: Int) => List(1, 7, 21, 15, 14, 41, 4, 28).contain(x) }
 

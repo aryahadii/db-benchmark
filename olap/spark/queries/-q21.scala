@@ -5,10 +5,10 @@ import org.apache.spark.sql.functions.sum
 import org.apache.spark.sql.functions.avg
 import org.apache.spark.sql.functions.udf
 
-val lineitems = spark.read.parquet("hdfs://namenode:8020/lineitem.parquet")
-val nations = spark.read.parquet("hdfs://namenode:8020/nation.parquet")
-val parts = spark.read.parquet("hdfs://namenode:8020/part.parquet")
-val suppliers = spark.read.parquet("hdfs://namenode:8020/supplier.parquet")
+val lineitems = spark.read.parquet("hdfs://namenode:8020/lineitem.{}")
+val nations = spark.read.parquet("hdfs://namenode:8020/nation.{}")
+val parts = spark.read.parquet("hdfs://namenode:8020/part.{}")
+val suppliers = spark.read.parquet("hdfs://namenode:8020/supplier.{}")
 
 
 val confinedLineitem = lineitems.filter($"l_receiptdate" > $"l_commitdate")

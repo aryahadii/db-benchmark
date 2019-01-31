@@ -5,10 +5,10 @@ import org.apache.spark.sql.functions.sum
 import org.apache.spark.sql.functions.avg
 import org.apache.spark.sql.functions.udf
 
-val lineitems = spark.read.parquet("hdfs://namenode:8020/lineitem.parquet")
-val nations = spark.read.parquet("hdfs://namenode:8020/nation.parquet")
-val parts = spark.read.parquet("hdfs://namenode:8020/part.parquet")
-val suppliers = spark.read.parquet("hdfs://namenode:8020/supplier.parquet")
+val lineitems = spark.read.parquet("hdfs://namenode:8020/lineitem.{}")
+val nations = spark.read.parquet("hdfs://namenode:8020/nation.{}")
+val parts = spark.read.parquet("hdfs://namenode:8020/part.{}")
+val suppliers = spark.read.parquet("hdfs://namenode:8020/supplier.{}")
 
 val lineitem = lineitems.filter($"l_shipdate" >= "1998-10-10").filter($"l_shipdate" < "1999-10-10").groupBy($"l_partkey", $"l_suppkey").agg((sum($"l_quantity") * 0.5).as("sum_quantity"))
 val nation = nations.filter($"n_name" === "EGYPT")

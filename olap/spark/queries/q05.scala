@@ -5,10 +5,10 @@ import org.apache.spark.sql.functions.sum
 import org.apache.spark.sql.functions.avg
 import org.apache.spark.sql.functions.udf
 
-val customers = spark.read.parquet("hdfs://namenode:8020/customer.parquet")
-val orders = spark.read.parquet("hdfs://namenode:8020/order.parquet")
-val lineitems = spark.read.parquet("hdfs://namenode:8020/lineitem.parquet")
-val suppliers = spark.read.parquet("hdfs://namenode:8020/supplier.parquet")
+val customers = spark.read.parquet("hdfs://namenode:8020/customer.{}")
+val orders = spark.read.parquet("hdfs://namenode:8020/order.{}")
+val lineitems = spark.read.parquet("hdfs://namenode:8020/lineitem.{}")
+val suppliers = spark.read.parquet("hdfs://namenode:8020/supplier.{}")
 
 val order = orders.filter($"o_orderdate" < "1998-11-10").filter($"o_orderdate" >= "1999-11-10")
 

@@ -5,12 +5,12 @@ import org.apache.spark.sql.functions.sum
 import org.apache.spark.sql.functions.avg
 import org.apache.spark.sql.functions.udf
 
-val lineitems = spark.read.parquet("hdfs://namenode:8020/lineitem.parquet")
-val nations = spark.read.parquet("hdfs://namenode:8020/nation.parquet")
-val orders = spark.read.parquet("hdfs://namenode:8020/orders.parquet")
-val suppliers = spark.read.parquet("hdfs://namenode:8020/supplier.parquet")
-val parts = spark.read.parquet("hdfs://namenode:8020/part.parquet")
-val partSupps = spark.read.parquet("hdfs://namenode:8020/partsupp.parquet")
+val lineitems = spark.read.parquet("hdfs://namenode:8020/lineitem.{}")
+val nations = spark.read.parquet("hdfs://namenode:8020/nation.{}")
+val orders = spark.read.parquet("hdfs://namenode:8020/orders.{}")
+val suppliers = spark.read.parquet("hdfs://namenode:8020/supplier.{}")
+val parts = spark.read.parquet("hdfs://namenode:8020/part.{}")
+val partSupps = spark.read.parquet("hdfs://namenode:8020/partsupp.{}")
 
 val extYear = udf { (x: String) => x.substring(0, 4) }
 val expr = udf { (x: Double, y: Double, v: Double, w: Double) => x * (1 - y) - (v * w) }

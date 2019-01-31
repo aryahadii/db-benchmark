@@ -5,9 +5,9 @@ import org.apache.spark.sql.functions.sum
 import org.apache.spark.sql.functions.avg
 import org.apache.spark.sql.functions.udf
 
-val regions = spark.read.parquet("hdfs://namenode:8020/region.parquet")
-val nations = spark.read.parquet("hdfs://namenode:8020/nation.parquet")
-val parts = spark.read.parquet("hdfs://namenode:8020/part.parquet")
+val regions = spark.read.parquet("hdfs://namenode:8020/region.{}")
+val nations = spark.read.parquet("hdfs://namenode:8020/nation.{}")
+val parts = spark.read.parquet("hdfs://namenode:8020/part.{}")
 
 val region = regions.filter($"r_name" === "AMERICA").join(nations, $"r_regionkey" === nations("n_regionkey")).join(supplier, $"n_nationkey" === supplier("s_nationkey")).join(partsupp, supplier("s_suppkey") === partsupp("ps_supkey"))
 

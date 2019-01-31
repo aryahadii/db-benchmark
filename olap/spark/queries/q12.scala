@@ -5,8 +5,8 @@ import org.apache.spark.sql.functions.sum
 import org.apache.spark.sql.functions.avg
 import org.apache.spark.sql.functions.udf
 
-val lineitems = spark.read.parquet("hdfs://namenode:8020/lineitem.parquet")
-val orders = spark.read.parquet("hdfs://namenode:8020/order.parquet")
+val lineitems = spark.read.parquet("hdfs://namenode:8020/lineitem.{}")
+val orders = spark.read.parquet("hdfs://namenode:8020/order.{}")
 
 val isHigh = udf { (x: String) => if (x == "1-URGENT" || x == "2-HIGH") 1 else 0 }
 val isLow = udf { (x: String) => if (x != "1-URGENT" && x != "2-HIGH") 1 else 0 }

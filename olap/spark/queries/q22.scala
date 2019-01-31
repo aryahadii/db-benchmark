@@ -5,8 +5,8 @@ import org.apache.spark.sql.functions.sum
 import org.apache.spark.sql.functions.avg
 import org.apache.spark.sql.functions.udf
 
-val customers = spark.read.parquet("hdfs://namenode:8020/customer.parquet")
-val orders = spark.read.parquet("hdfs://namenode:8020/order.parquet")
+val customers = spark.read.parquet("hdfs://namenode:8020/customer.{}")
+val orders = spark.read.parquet("hdfs://namenode:8020/order.{}")
 
 val customer = customers.select($"c_acctbal", $"c_custkey", ($"c_phone").substring(0, 2).as("cntrycode")).filter(List("13", "40", "22", "29", "21", "18", "17").contain($"cntrycode"))
 val balance = customer.filter($"c_acctbal" > 0.0).agg(avg($"c_acctbal").as("avg_acctbal"))

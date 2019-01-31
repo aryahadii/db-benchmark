@@ -5,13 +5,13 @@ import org.apache.spark.sql.functions.sum
 import org.apache.spark.sql.functions.avg
 import org.apache.spark.sql.functions.udf
 
-val lineitems = spark.read.parquet("hdfs://namenode:8020/lineitem.parquet")
-val regions = spark.read.parquet("hdfs://namenode:8020/region.parquet")
-val nations = spark.read.parquet("hdfs://namenode:8020/nation.parquet")
-val orders = spark.read.parquet("hdfs://namenode:8020/orders.parquet")
-val suppliers = spark.read.parquet("hdfs://namenode:8020/supplier.parquet")
-val parts = spark.read.parquet("hdfs://namenode:8020/part.parquet")
-val customers = spark.read.parquet("hdfs://namenode:8020/customers.parquet")
+val lineitems = spark.read.parquet("hdfs://namenode:8020/lineitem.{}")
+val regions = spark.read.parquet("hdfs://namenode:8020/region.{}")
+val nations = spark.read.parquet("hdfs://namenode:8020/nation.{}")
+val orders = spark.read.parquet("hdfs://namenode:8020/orders.{}")
+val suppliers = spark.read.parquet("hdfs://namenode:8020/supplier.{}")
+val parts = spark.read.parquet("hdfs://namenode:8020/part.{}")
+val customers = spark.read.parquet("hdfs://namenode:8020/customers.{}")
 
 val extYear = udf { (x: String) => x.substring(0, 4) }
 val isEgypt = udf { (x: String, y: Double) => if (x == "EGYPT") y else 0 }

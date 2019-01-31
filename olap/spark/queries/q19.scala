@@ -5,8 +5,8 @@ import org.apache.spark.sql.functions.sum
 import org.apache.spark.sql.functions.avg
 import org.apache.spark.sql.functions.udf
 
-val lineitems = spark.read.parquet("hdfs://namenode:8020/lineitem.parquet")
-val parts = spark.read.parquet("hdfs://namenode:8020/part.parquet")
+val lineitems = spark.read.parquet("hdfs://namenode:8020/lineitem.{}")
+val parts = spark.read.parquet("hdfs://namenode:8020/part.{}")
 
 parts.join(lineitems, $"l_partkey" === $"p_partkey").filter($"l_shipmode" === "AIR" || $"l_shipmode" === "AIR REG").filter($"l_shipinstruct" === "DELIVER IN PERSON").filter((
     ($"p_brand" === "Brand#13") && List("SM CASE", "SM BOX", "SM PACK", "SM PKG").contain($"p_container") && $"l_quantity" >= 10 && $"l_quantity" <= 20 && $"p_size" >= 1 && $"p_size" <= 5) ||

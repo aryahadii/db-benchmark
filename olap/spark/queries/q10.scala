@@ -5,9 +5,9 @@ import org.apache.spark.sql.functions.sum
 import org.apache.spark.sql.functions.avg
 import org.apache.spark.sql.functions.udf
 
-val lineitems = spark.read.parquet("hdfs://namenode:8020/lineitem.parquet")
-val nations = spark.read.parquet("hdfs://namenode:8020/nation.parquet")
-val orders = spark.read.parquet("hdfs://namenode:8020/orders.parquet")
+val lineitems = spark.read.parquet("hdfs://namenode:8020/lineitem.{}")
+val nations = spark.read.parquet("hdfs://namenode:8020/nation.{}")
+val orders = spark.read.parquet("hdfs://namenode:8020/orders.{}")
 
 val lineitem = lineitems.filter($"l_returnflag" === "R")
 
