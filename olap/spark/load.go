@@ -1,6 +1,6 @@
 // #!/usr/bin/env gorun
 
-package load
+package main
 
 import (
 	"fmt"

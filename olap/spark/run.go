@@ -1,6 +1,6 @@
-// #!/usr/bin/env gorun
+#!/usr/bin/env gorun
 
-package run
+package main
 
 import (
 	"context"
@@ -38,13 +38,13 @@ func parseArgs() {
 
 func runQueries(queryFilePaths []string) {
 	for _, queryPath := range queryFilePaths {
-		if err := runQuery(databaseName, queryPath); err != nil {
+		if err := runQuery(queryPath); err != nil {
 			log.Printf("error while running %s [%v]", queryPath, err)
 		}
 	}
 }
 
-func runQuery(databaseName, queryFilePath string) error {
+func runQuery(queryFilePath string) error {
 	ctx, monitoringCancelFunc := context.WithCancel(context.Background())
 	defer monitoringCancelFunc()
 	go monitorSystem(ctx, queryFilePath)
@@ -59,10 +59,10 @@ func runSparkShell(queryFilePath string) error {
 		"exec",
 		"-i",
 		containerName,
-		"sh",
+		"bash",
 		"-c",
 		fmt.Sprintf(
-			"spark-submit --py-files loader.py --packages com.databricks:spark-avro_2.11:4.0.0 < %s",
+			"spark-shell --packages com.databricks:spark-avro_2.11:4.0.0 < %s",
 			queryFileName,
 		),
 	}
@@ -74,7 +74,7 @@ func runSparkShell(queryFilePath string) error {
 	return err
 }
 
-func copyFileToContainerRoot(filePath, containerName) error {
+func copyFileToContainerRoot(filePath, containerName string) error {
 	file, err := ioutil.ReadFile(filePath)
 	if err != nil {
 		return err
@@ -88,7 +88,7 @@ func copyFileToContainerRoot(filePath, containerName) error {
 	copyArgs := []string{
 		"cp",
 		newFilePath,
-		fmt.Sprintf("%s:/%s", containerName, filepath),
+		fmt.Sprintf("%s:/%s", containerName, filePath),
 	}
 	copyCmd := exec.Command("docker", copyArgs...)
 	copyCmd.CombinedOutput()
