@@ -1,15 +1,16 @@
-#!/usr/bin/env gorun
+// #!/usr/bin/env gorun
 
 package main
 
 import (
 	"context"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"log"
 	"os"
 	"os/exec"
 	"strconv"
+	"time"
 )
 
 const (
@@ -44,7 +45,7 @@ func parseArgs() {
 func run() {
 	for _, warehouse := range warehouses {
 		if err := runQuery(warehouse); err != nil {
-			log.Printf("error while running for %d warehouses: %v", warehouses, err)
+			log.Printf("error while running for %d warehouses: %v", warehouse, err)
 		}
 	}
 }
@@ -64,7 +65,7 @@ func runWorkload(warehouse int) error {
 		containerName,
 		"bash",
 		"-c",
-		fmt.Sprintf("cockroach workload init tpcc --drop --warehouses %d", warehouse),
+		fmt.Sprintf("./cockroach workload init tpcc --drop --warehouses %d", warehouse),
 	}
 	cmd := exec.Command("docker", args...)
 	_, err := cmd.CombinedOutput()
@@ -76,12 +77,35 @@ func runWorkload(warehouse int) error {
 		containerName,
 		"bash",
 		"-c",
-		fmt.Sprintf("cockroach workload run tpcc --warehouses %d", warehouse),
+		fmt.Sprintf("./cockroach workload run tpcc --warehouses %d", warehouse),
 	}
 	cmd = exec.Command("docker", args...)
-	output, err := cmd.CombinedOutput()
+	output, err := cmd.StdoutPipe()
+
+	// Timeout
+	done := make(chan error, 1)
+	go func() {
+		done <- cmd.Wait()
+	}()
+	select {
+	case <-time.After(5 * time.Minute):
+		if err := cmd.Process.Kill(); err != nil {
+			return fmt.Errorf("failed to kill process: %v", err)
+		}
+	case err := <-done:
+		if err != nil {
+			return fmt.Errorf("process finished with error: %v", err)
+		}
+	}
+
+	// Write to file
 	outputFilePath := fmt.Sprintf(outputPath, warehouse)
-	ioutil.WriteFile(outputFilePath, output, os.ModePerm)
+	outputFile, err := os.Open(outputFilePath)
+	if err != nil {
+		return err
+	}
+	defer outputFile.Close()
+	_, err = io.Copy(outputFile, output)
 	return err
 }
 
