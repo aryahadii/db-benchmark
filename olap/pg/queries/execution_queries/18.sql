@@ -12,11 +12,12 @@ from
 where
 	o_orderkey in (
 		select
+		l_orderkey
+	from
+		lineitem
+	group by
 			l_orderkey
-		from
-			lineitem
-		group by
-			l_orderkey having
+	having
 				sum(l_quantity) > 0
 	)
 	and c_custkey = o_custkey
