@@ -14,5 +14,6 @@ olap/pg/queries/explain_queries/*
 *.gz
 *.out
 *.pdf
+__latexindent_temp.tex
 
 .DS_Store
