@@ -7,12 +7,11 @@
         "**/.DS_Store": true,
         "**/*.aux": true,
         "**/*.fls": true,
-        "**/*.out": true,
+        // "**/*.out": true,
         "**/*.log": true,
         "**/*.synctex.gz": true,
         "**/*.fdb_latexmk": true
     },
-    "editor.wordWrap": "on",
     "python.pythonPath": "/usr/local/bin/python",
     "python.linting.pylintEnabled": true
 }

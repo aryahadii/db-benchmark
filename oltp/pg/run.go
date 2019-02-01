@@ -54,6 +54,7 @@ func run() {
 		if err := runQuery(warehouses, rate); err != nil {
 			log.Printf("error while running for (%d, %d): %v", warehouses, rate, err)
 		}
+		log.Printf("%d rate completed.", rate)
 	}
 }
 
