@@ -6,10 +6,10 @@ import org.apache.spark.sql.functions.avg
 import org.apache.spark.sql.functions.udf
 
 val customers = spark.read.parquet("hdfs://namenode:8020/customer.{}")
-val orders = spark.read.parquet("hdfs://namenode:8020/order.{}")
+val orders = spark.read.parquet("hdfs://namenode:8020/orders.{}")
 val lineitems = spark.read.parquet("hdfs://namenode:8020/lineitem.{}")
 
-val order = orders.filter($"o_orderdate" >= "1998-11-20".filter($"o_orderdate" < "1999-02-20")
-val lineitem = lineitem.filter($"l_commitdate" < $"l_receiptdate").select($"l_orderkey").distinct
+val order = orders.filter($"o_orderdate" >= "1998-11-20").filter($"o_orderdate" < "1999-02-20")
+val lineitem = lineitems.filter($"l_commitdate" < $"l_receiptdate").select($"l_orderkey").distinct
 
 lineitem.join(order, $"l_orderkey" === order("o_orderkey")).groupBy($"o_orderpriority").agg(count($"o_orderpriority")).sort($"o_orderpriority").show()

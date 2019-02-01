@@ -70,7 +70,7 @@ func submitScript(scriptPath string) error {
 		sparkMasterContainer,
 		"bash",
 		"-c",
-		fmt.Sprintf("./bin/spark-submit --py-files loader.py --packages com.databricks:spark-avro_2.11:4.0.0 %s", scriptPath),
+		fmt.Sprintf("./bin/spark-submit --py-files loader.py --packages com.databricks:spark-avro_2.11:4.0.0 /%s", scriptPath),
 	}
 	submitCmd := exec.Command("docker", args...)
 	output, err := submitCmd.CombinedOutput()

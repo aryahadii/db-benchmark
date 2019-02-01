@@ -8,7 +8,7 @@ import org.apache.spark.sql.functions.udf
 val decrease = udf { (x: Double, y: Double) => x * (1 - y) }
 
 val customers = spark.read.parquet("hdfs://namenode:8020/customer.{}")
-val orders = spark.read.parquet("hdfs://namenode:8020/order.{}")
+val orders = spark.read.parquet("hdfs://namenode:8020/orders.{}")
 val lineitems = spark.read.parquet("hdfs://namenode:8020/lineitem.{}")
 
 val customer = customers.filter($"c_mktsegment" === "MACHINERY")

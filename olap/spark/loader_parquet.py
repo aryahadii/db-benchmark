@@ -1,4 +1,4 @@
-from .loader import load_data
+from loader import load_data
 
 
 def write_parquet(df, file_name):

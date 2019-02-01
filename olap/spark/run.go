@@ -9,7 +9,6 @@ import (
 	"log"
 	"os"
 	"os/exec"
-	"path"
 	"strings"
 )
 
@@ -54,7 +53,6 @@ func runQuery(queryFilePath string) error {
 }
 
 func runSparkShell(queryFilePath string) error {
-	queryFileName := path.Base(queryFilePath)
 	psqlArgs := []string{
 		"exec",
 		"-i",
@@ -62,7 +60,7 @@ func runSparkShell(queryFilePath string) error {
 		"bash",
 		"-c",
 		fmt.Sprintf(
-			"spark-shell --packages com.databricks:spark-avro_2.11:4.0.0 < /%s",
+			"echo \":load /%s\n:quit\" | spark-shell --packages com.databricks:spark-avro_2.11:4.0.0",
 			"query.scala",
 		),
 	}
