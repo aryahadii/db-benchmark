@@ -6,27 +6,20 @@
 \centering
 \begin{tikzpicture}[baseline]
     % \begin{axis}[width=7cm, xlabel=\emph{Throughput (req/sec)}, ylabel=\emph{System Load}, ylabel near ticks, grid=major, legend pos=south east, nodes near coords, every node near coord/.append style={font=\footnotesize}, every node near coord/.append style={yshift=-0.5cm}]
-    \begin{axis}[width=7cm, xlabel=\emph{Throughput (req/sec)}, ylabel=\emph{System Load}, ylabel near ticks, grid=major, legend pos=south east, ytick distance=0.5, xtick={20, 500, 1000, 2000}]
+    \begin{axis}[width=8cm, xlabel=\emph{Scale Factor}, ylabel=\emph{System Load}, ylabel near ticks, grid=major, legend pos=north west, ytick distance=0.5]
         \addplot coordinates {
-            (2000,6.14) (1000,2.24) (500,2.04) (100,0.57) (20,0.3)
+            (1,1.2) (2,1.24) (3,0.92) (4,1) (5,1.16) (6,1.33) (7,1.36) (8,1.39) (9,1.60) (10,2.17) (11, 2.05) (12,2.53) (13,2.26) (14,2.46) (15,2.21)
         };
-        \addlegendentry{scale-factor=1}
+        \addlegendentry{cockroach db}
 
         \addplot coordinates {
-            (1000,4.73) (500,4.87) (100,0.78) (20,0.29)
+            (1,0.09) (2,0.13) (3,0.2) (4,0.23) (5,0.35) (6,0.32) (15, 0.71)
         };
-        \addlegendentry{scale-factor=2}
+        \addlegendentry{postgres}
     \end{axis}
 \end{tikzpicture}
-\label{fig:oltp_pg_load}
-\caption{System load during Postgres's TPC-C benchmark}
+\label{fig:oltp_load}
+\caption{System load during TPC-C benchmark}
 \end{figure}
-
-% \begin{tikzpicture}[baseline]
-%     \begin{axis}[title=CockroachDB, xlabel=\emph{Throughput (req/sec)}, ylabel=\emph{System Load}, ylabel near ticks, grid=major, legend pos=south east, nodes near coords, every node near coord/.append style={font=\footnotesize}, every node near coord/.append style={yshift=-0.5cm}]
-%         \addlegendentry{scale-factor=1}
-%         \addlegendentry{scale-factor=2}
-%     \end{axis}
-% \end{tikzpicture}
 
 \end{document}

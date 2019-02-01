@@ -10,7 +10,6 @@ val nations = spark.read.parquet("hdfs://namenode:8020/nation.{}")
 val parts = spark.read.parquet("hdfs://namenode:8020/part.{}")
 val partsupps = spark.read.parquet("hdfs://namenode:8020/partsupp.{}")
 val suppliers = spark.read.parquet("hdfs://namenode:8020/supplier.{}")
-
 val region = regions.filter($"r_name" === "AMERICA").join(nations, $"r_regionkey" === nations("n_regionkey")).join(suppliers, $"n_nationkey" === suppliers("s_nationkey")).join(partsupps, suppliers("s_suppkey") === partsupps("ps_supkey"))
 
 val part = parts.filter($"p_size" === 42).filter(($"p_type").endsWith("STEEL")).join(region, region("ps_partkey") === $"p_partkey")
